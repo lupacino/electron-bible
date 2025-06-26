@@ -1,0 +1,8 @@
+//ignore node_modules
+node_modules/
+.env
+dist/
+.DS_Store
+//ignore .env
+//ignore dist
+//ignore .DS_Store

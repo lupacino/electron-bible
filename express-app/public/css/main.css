@@ -1,0 +1,420 @@
+@import url("https://fonts.googleapis.com/css2?family=Patrick+Hand+SC&display=swap");
+
+.preview-containter {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  /*height: 100vh; /* Full viewport height */
+  /*width: 100%; Full width*/
+  text-align: center; /* Ensure inline text elements align */
+}
+
+.preview-containter .container {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+}
+
+#preview-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
+  text-align: center;
+}
+
+/* Highlight with Background */
+.highlight {
+  font-weight: bold;
+  padding: 2px 5px;
+}
+.color-red.highlight {
+  background-color: #e63946;
+  color: white;
+}
+.color-orange.highlight {
+  background-color: #f4a261;
+  color: black;
+}
+.color-yellow.highlight {
+  background-color: #e9c46a;
+  color: black;
+}
+.color-teal.highlight {
+  background-color: #2a9d8f;
+  color: white;
+}
+.color-dark-blue.highlight {
+  background-color: #264653;
+  color: white;
+}
+.color-blue.highlight {
+  background-color: #457b9d;
+  color: white;
+}
+.color-gray-blue.highlight {
+  background-color: #8d99ae;
+  color: black;
+}
+.color-purple.highlight {
+  background-color: #6a0572;
+  color: white;
+}
+.color-dark-red.highlight {
+  background-color: #d90429;
+  color: white;
+}
+.color-bright-orange.highlight {
+  background-color: #f77f00;
+  color: black;
+}
+
+/* Brackets */
+.brackets::before {
+  content: "[";
+
+  font-weight: bold;
+}
+.brackets::after {
+  content: "]";
+
+  font-weight: bold;
+}
+
+/* Ensure brackets take the selected color */
+.color-red.brackets::before,
+.color-red.brackets::after {
+  color: #e63946;
+}
+.color-orange.brackets::before,
+.color-orange.brackets::after {
+  color: #f4a261;
+}
+.color-yellow.brackets::before,
+.color-yellow.brackets::after {
+  color: #e9c46a;
+}
+.color-teal.brackets::before,
+.color-teal.brackets::after {
+  color: #2a9d8f;
+}
+.color-dark-blue.brackets::before,
+.color-dark-blue.brackets::after {
+  color: #264653;
+}
+.color-blue.brackets::before,
+.color-blue.brackets::after {
+  color: #457b9d;
+}
+.color-gray-blue.brackets::before,
+.color-gray-blue.brackets::after {
+  color: #8d99ae;
+}
+.color-purple.brackets::before,
+.color-purple.brackets::after {
+  color: #6a0572;
+}
+.color-dark-red.brackets::before,
+.color-dark-red.brackets::after {
+  color: #d90429;
+}
+.color-bright-orange.brackets::before,
+.color-bright-orange.brackets::after {
+  color: #f77f00;
+}
+
+/* Boxed Text */
+.box {
+  display: inline-block;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.color-red.box {
+  border: 2px solid #e63946;
+  color: #e63946;
+}
+.color-orange.box {
+  border: 2px solid #f4a261;
+  color: #f4a261;
+}
+.color-yellow.box {
+  border: 2px solid #e9c46a;
+  color: #e9c46a;
+}
+.color-teal.box {
+  border: 2px solid #2a9d8f;
+  color: #2a9d8f;
+}
+.color-dark-blue.box {
+  border: 2px solid #264653;
+  color: #264653;
+}
+.color-blue.box {
+  border: 2px solid #457b9d;
+  color: #457b9d;
+}
+.color-gray-blue.box {
+  border: 2px solid #8d99ae;
+  color: #8d99ae;
+}
+.color-purple.box {
+  border: 2px solid #6a0572;
+  color: #6a0572;
+}
+.color-dark-red.box {
+  border: 2px solid #d90429;
+  color: #d90429;
+}
+.color-bright-orange.box {
+  border: 2px solid #f77f00;
+  color: #f77f00;
+}
+
+/* Underline */
+.underline,
+.double-underline {
+  display: inline;
+}
+.color-red.underline {
+  border-bottom: 2px solid #e63946;
+}
+.color-orange.underline {
+  border-bottom: 2px solid #f4a261;
+}
+.color-yellow.underline {
+  border-bottom: 2px solid #e9c46a;
+}
+.color-teal.underline {
+  border-bottom: 2px solid #2a9d8f;
+}
+.color-dark-blue.underline {
+  border-bottom: 2px solid #264653;
+}
+.color-blue.underline {
+  border-bottom: 2px solid #457b9d;
+}
+.color-gray-blue.underline {
+  border-bottom: 2px solid #8d99ae;
+}
+.color-purple.underline {
+  border-bottom: 2px solid #6a0572;
+}
+.color-dark-red.underline {
+  border-bottom: 2px solid #d90429;
+}
+.color-bright-orange.underline {
+  border-bottom: 2px solid #f77f00;
+}
+
+/* Double Underline */
+.color-red.double-underline {
+  border-bottom: 3px double #e63946;
+}
+.color-orange.double-underline {
+  border-bottom: 3px double #f4a261;
+}
+.color-yellow.double-underline {
+  border-bottom: 3px double #e9c46a;
+}
+.color-teal.double-underline {
+  border-bottom: 3px double #2a9d8f;
+}
+.color-dark-blue.double-underline {
+  border-bottom: 3px double #264653;
+}
+.color-blue.double-underline {
+  border-bottom: 3px double #457b9d;
+}
+.color-gray-blue.double-underline {
+  border-bottom: 3px double #8d99ae;
+}
+.color-purple.double-underline {
+  border-bottom: 3px double #6a0572;
+}
+.color-dark-red.double-underline {
+  border-bottom: 3px double #d90429;
+}
+.color-bright-orange.double-underline {
+  border-bottom: 3px double #f77f00;
+}
+
+/* Ensure bold words inherit selected color */
+.bold {
+  font-weight: bold;
+}
+
+/* Apply color to bold words */
+.color-red.bold {
+  color: #e63946;
+}
+.color-orange.bold {
+  color: #f4a261;
+}
+.color-yellow.bold {
+  color: #e9c46a;
+}
+.color-teal.bold {
+  color: #2a9d8f;
+}
+.color-dark-blue.bold {
+  color: #264653;
+}
+.color-blue.bold {
+  color: #457b9d;
+}
+.color-gray-blue.bold {
+  color: #8d99ae;
+}
+.color-purple.bold {
+  color: #6a0572;
+}
+.color-dark-red.bold {
+  color: #d90429;
+}
+.color-bright-orange.bold {
+  color: #f77f00;
+}
+
+/* Gradient Text Effect */
+/* Static Gradient Text Effect */
+.gradient-text {
+  font-weight: bold;
+  font-size: 3rem; /* Adjust size as needed */
+  text-align: center;
+  display: inline-block; /* Ensures gradient works */
+}
+/* .gradient-text {
+  font-weight: bold;
+  font-size: 1.8rem; /* Adjust size as needed */
+/* text-align: center;
+  display: inline-block; /* Ensures gradient works */
+/*background: linear-gradient(
+    90deg,
+    #d65db1,
+    #ff6f91,
+    #00ffee,
+    #0084ff,
+    #a600ff
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent; /* Ensures gradient is visible */
+/*} */
+
+/* Annotation Containers (Holds Annotations in Left, Right, Bottom Areas) */
+.annotation-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* Space between annotations */
+  min-height: 150px;
+  padding: 5px;
+}
+
+/* Base Styling for Annotations */
+.annotation-box {
+  padding: 8px;
+  /* font-size: 0.9rem; */
+  background-color: #f8f9fa;
+  border: 2px solid transparent; /* Prevent harsh borders */
+  background-clip: padding-box, border-box;
+  background-origin: padding-box, border-box;
+  background-image: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0.3)
+  );
+  border-radius: 5px;
+  font-family: "Patrick Hand SC", sans-serif;
+}
+
+/* Ensure Border Color Matches Highlight Color */
+.color-red.annotation-box {
+  border-color: #e63946;
+  background-color: rgba(230, 57, 70, 0.1); /* Light red background */
+}
+.color-orange.annotation-box {
+  border-color: rgb(244, 162, 97);
+  background-color: rgba(244, 162, 97, 0.1); /* Light orange background */
+}
+.color-yellow.annotation-box {
+  border-color: rgb(233, 196, 106);
+  background-color: rgba(233, 196, 106, 0.1); /* Light yellow background */
+}
+.color-teal.annotation-box {
+  border-color: rgb(42, 157, 143);
+  background-color: rgba(42, 157, 143, 0.1); /* Light teal background */
+}
+.color-dark-blue.annotation-box {
+  border-color: rgb(38, 70, 83);
+  background-color: rgba(38, 70, 83, 0.1); /* Light dark blue background */
+}
+.color-blue.annotation-box {
+  border-color: rgb(69, 123, 157);
+  background-color: rgba(69, 123, 157, 0.1); /* Light blue background */
+}
+.color-gray-blue.annotation-box {
+  border-color: rgb(141, 153, 174);
+  background-color: rgb(141, 153, 174, 0.1); /* Light gray-blue background */
+}
+.color-purple.annotation-box {
+  border-color: #6a0572;
+  background-color: rgba(106, 5, 114, 0.1); /* Light purple background */
+}
+.color-dark-red.annotation-box {
+  border-color: #d90429;
+  background-color: rgba(217, 4, 41, 0.1); /* Light dark red background */
+}
+.color-bright-orange.annotation-box {
+  border-color: #f77f00;
+  background-color: rgba(247, 127, 0, 0.1); /* Light bright orange background */
+}
+
+.preview-containter {
+  background-color: black;
+  color: white;
+}
+
+/* Apply color to all-caps words in annotation */
+.all-caps.color-red {
+  color: #e63946;
+}
+.all-caps.color-orange {
+  color: #f4a261;
+}
+.all-caps.color-yellow {
+  color: #e9c46a;
+}
+.all-caps.color-teal {
+  color: #2a9d8f;
+}
+.all-caps.color-dark-blue {
+  color: #264653;
+}
+.all-caps.color-blue {
+  color: #457b9d;
+}
+.all-caps.color-gray-blue {
+  color: #8d99ae;
+}
+.all-caps.color-purple {
+  color: #6a0572;
+}
+.all-caps.color-dark-red {
+  color: #d90429;
+}
+.all-caps.color-bright-orange {
+  color: #f77f00;
+}
+
+/* Glow Effect for Highlighted Words */
+.word-highlight {
+  font-weight: bold;
+  position: relative;
+  top: -1px;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+}
+Glow Effect for Annotations .annotation-box {
+  box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.2);
+}

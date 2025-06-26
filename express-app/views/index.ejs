@@ -1,0 +1,186 @@
+<%- include('./partials/header') %>
+
+<div class="container text-center mt-5">
+  <div class="p-4 shadow" style="border: 3px solid #F962A; border-radius: 10px;">
+    <p id="currentTime" class="font-weight-bold" style="font-size: 2rem;"></p>
+    <p id="scripture" class="font-italic mt-3"></p>
+    <button type="button" class="btn btn-primary mt-3" id="openVersionModal" data-toggle="modal" data-target="#versionModal">
+      Select Bible Version
+    </button>
+  </div>
+</div>
+
+<!-- Modal for Bible Version Selection -->
+<div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="versionModalLabel">Select Bible Version</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">×</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="bibleVersion">Choose a Bible Version:</label>
+          <select class="form-control" id="bibleVersion">
+            <option value="ABT" data-summary="This version blends the American Standard Version's structure with the textual basis of the Byzantine Greek manuscript tradition. It reflects a majority-text philosophy, appealing to those who favor the traditional Greek text used in much of church history." data-sample="For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.">American Standard Version Byzantine Text (ABT)</option>
+            <option value="ASV" data-summary="Published in 1901, the ASV is an American revision of the KJV that emphasizes accuracy and consistency with original manuscripts. It uses 'Jehovah' for the divine name and was widely used in early 20th-century American churches." data-sample="For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.">American Standard Version (ASV)</option>
+            <option value="BBE" data-summary="Created in the 1940s, the BBE uses a limited 1,000-word vocabulary aimed at making the Bible accessible to people with basic English skills. It sacrifices some nuance for clarity and readability." data-sample="For God had such love for the world that he gave his only Son, so that whoever has faith in him may not come to destruction but have eternal life.">Bible in Basic English (BBE)</option>
+            <option value="BSB" data-summary="The BSB is a modern, easy-to-read translation that seeks a balance between word-for-word precision and thought-for-thought clarity. It was designed with study and accessibility in mind, featuring free licensing and open availability." data-sample="For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life.">Berean Standard Bible (BSB)</option>
+            <option value="KJV" data-summary="Commissioned by King James I in 1604 and published in 1611, the KJV is one of the most influential and widely read Bible translations in the English-speaking world. Known for its majestic, poetic language, it reflects the scholarship and theology of its time." data-sample="For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.">King James Version (KJV)</option>
+            <option value="LSV" data-summary="The LSV is a highly literal translation aiming to be as close to the original Hebrew and Greek as possible while remaining readable in English. It features consistent word usage, transliterated proper names, and includes the divine name rendered as 'YHWH.'" data-sample="For God so loved the world that He gave the One and Only Son, that everyone believing in Him should not perish, but should have continuous life.">Literal Standard Version (LSV)</option>
+            <option value="WEBP" data-summary="The World English Bible is a modern update of the American Standard Version, using contemporary English and in the public domain. The 'WEBP' variant is formatted for digital use and includes paragraph structuring and punctuation enhancements." data-sample="For God so loved the world that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.">World English Bible (WEBP)</option>
+            <option value="YLT" data-summary="Young's Literal Translation is a strictly literal translation of the original Hebrew and Greek texts, created by Robert Young in the 19th century. It preserves original word order and tense usage, making it useful for deep study but often awkward in English flow." data-sample="for God so loved the world, that His Son—the only begotten—He gave, that every one who is believing in him may not perish, but may have life age-during.">Young's Literal Translation (YLT)</option>
+          </select>
+          <div id="versionSummary" class="mt-3"></div>
+          <div id="versionSample" class="mt-3"><strong>John 3:16 Sample:</strong> <span id="sampleText"></span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="saveVersion">Save Selection</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('./partials/footer') %>
+
+<script>
+const jesusSayings = [
+  { text: "Come to me, all you who are weary and burdened, and I will give you rest. - Jesus", reference: "Matthew 11:28" },
+  { text: "I am the way, the truth, and the life. - Jesus", reference: "John 14:6" },
+  { text: "Peace I leave with you; my peace I give you. - Jesus", reference: "John 14:27" },
+  { text: "Take heart, I have overcome the world. - Jesus", reference: "John 16:33" },
+  { text: "You are the light of the world. - Jesus", reference: "Matthew 5:14" },
+  { text: "Love your neighbor as yourself. - Jesus", reference: "Mark 12:31" },
+  { text: "Do to others as you would have them do to you. - Jesus", reference: "Luke 6:31" },
+  { text: "Blessed are the meek, for they will inherit the earth. - Jesus", reference: "Matthew 5:5" },
+  { text: "Blessed are the peacemakers, for they will be called children of God. - Jesus", reference: "Matthew 5:9" },
+  { text: "Blessed are the merciful, for they will be shown mercy. - Jesus", reference: "Matthew 5:7" },
+  { text: "Blessed are the pure in heart, for they will see God. - Jesus", reference: "Matthew 5:8" },
+  { text: "Blessed are those who hunger and thirst for righteousness, for they will be filled. - Jesus", reference: "Matthew 5:6" },
+  { text: "Let the little children come to me, and do not hinder them. - Jesus", reference: "Matthew 19:14" },
+  { text: "Ask, and it will be given to you; seek, and you will find; knock, and the door will be opened to you. - Jesus", reference: "Matthew 7:7" },
+  { text: "For where your treasure is, there your heart will be also. - Jesus", reference: "Matthew 6:21" },
+  { text: "You will know the truth, and the truth will set you free. - Jesus", reference: "John 8:32" },
+  { text: "My kingdom is not of this world. - Jesus", reference: "John 18:36" },
+  { text: "If anyone would come after me, let him deny himself and take up his cross and follow me. - Jesus", reference: "Mark 8:34" },
+  { text: "In my Father's house are many rooms. - Jesus", reference: "John 14:2" },
+  { text: "Where two or three gather in my name, there am I with them. - Jesus", reference: "Matthew 18:20" },
+  { text: "For my yoke is easy and my burden is light. - Jesus", reference: "Matthew 11:30" },
+  { text: "Do not let your hearts be troubled. You believe in God; believe also in me. - Jesus", reference: "John 14:1" },
+  { text: "Watch and pray so that you will not fall into temptation. - Jesus", reference: "Matthew 26:41" },
+  { text: "Truly I tell you, whatever you did for one of the least of these brothers and sisters of mine, you did for me. - Jesus", reference: "Matthew 25:40" },
+  { text: "For whoever wants to save their life will lose it, but whoever loses their life for me will find it. - Jesus", reference: "Matthew 16:25" }
+];
+
+const outlierTimes = [
+  "1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00", "8:00", "9:00", "10:00", "11:00", "12:00",
+  "4:55", "4:56", "4:57", "4:58", "4:59",
+  "5:49", "5:50", "5:51", "5:52", "5:53", "5:54", "5:55", "5:56", "5:57", "5:58", "5:59",
+  "10:53", "10:54", "10:55", "10:56", "10:57", "10:58", "10:59",
+  "11:58", "11:59"
+];
+
+function displayScriptureOrEncouragement(currentHour, currentMinute, currentTimeStr) {
+  const minutesNum = parseInt(currentMinute, 10);
+  const timeKey = `${currentHour}:${currentMinute}`;
+  
+  if (outlierTimes.includes(timeKey)) {
+    const randomIndex = Math.floor(Math.random() * jesusSayings.length);
+    const saying = jesusSayings[randomIndex];
+    document.getElementById('scripture').innerHTML =
+      `<em>${saying.text}</em> <small>(${saying.reference})</small>`;
+  } else {
+    const selectedVersion = localStorage.getItem('bibleVersion') || 'KJV';
+    fetch(`/bible/random?chapter=${currentHour}&verse=${minutesNum}&translation=${selectedVersion}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById('scripture').innerHTML =
+            `<em>No scripture available for ${currentHour}:${currentMinute}. Try again later!</em>`;
+        } else {
+          const scriptureHTML = `<strong>${data.book} ${data.chapter}:${data.verse} (${data.translation})</strong> - ${data.text}`;
+          document.getElementById('scripture').innerHTML = scriptureHTML;
+        }
+      })
+      .catch(error => {
+        console.error("Error fetching random verse:", error);
+        document.getElementById('scripture').textContent = "Error fetching verse.";
+      });
+  }
+}
+
+let previousTime = "";
+
+function updateTime() {
+  const now = new Date();
+  let hours = now.getHours();
+  let minutes = now.getMinutes();
+
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  if (hours === 0) hours = 12;
+  minutes = minutes < 10 ? '0' + minutes : minutes;
+
+  const currentTimeStr = hours + ':' + minutes + ' ' + ampm;
+  document.getElementById('currentTime').textContent = currentTimeStr;
+
+  if (currentTimeStr !== previousTime) {
+    previousTime = currentTimeStr;
+    displayScriptureOrEncouragement(hours, minutes, currentTimeStr);
+  }
+}
+
+// Modal JavaScript
+document.addEventListener('DOMContentLoaded', () => {
+  const versionSelect = document.getElementById('bibleVersion');
+  const versionSummary = document.getElementById('versionSummary');
+  const versionSample = document.getElementById('sampleText');
+  const saveButton = document.getElementById('saveVersion');
+  const openModalButton = document.getElementById('openVersionModal');
+
+  // Display summary and sample when a version is selected
+  versionSelect.addEventListener('change', () => {
+    const selectedOption = versionSelect.options[versionSelect.selectedIndex];
+    versionSummary.textContent = selectedOption.getAttribute('data-summary');
+    versionSample.textContent = selectedOption.getAttribute('data-sample');
+  });
+
+  // Trigger initial summary and sample display
+  versionSummary.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-summary');
+  versionSample.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-sample');
+
+  // Save selected version and refresh scripture
+  saveButton.addEventListener('click', () => {
+    const selectedVersion = versionSelect.value;
+    localStorage.setItem('bibleVersion', selectedVersion);
+    // Move focus to the open modal button before closing
+    openModalButton.focus();
+    $('#versionModal').modal('hide');
+    // Force refresh scripture
+    previousTime = "";
+    updateTime();
+  });
+
+  // Handle modal hidden event to ensure focus is managed
+  $('#versionModal').on('hidden.bs.modal', () => {
+    openModalButton.focus();
+  });
+
+  // Set default version from localStorage
+  const savedVersion = localStorage.getItem('bibleVersion');
+  if (savedVersion) {
+    versionSelect.value = savedVersion;
+    versionSummary.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-summary');
+    versionSample.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-sample');
+  }
+});
+
+updateTime();
+setInterval(updateTime, 3000);
+</script>
+
+<%- include('./partials/end') %>
