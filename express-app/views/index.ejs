@@ -1,21 +1,17 @@
 <%- include('./partials/header') %>
-
 <div class="text-center d-flex flex-column justify-content-center align-items-center vh-100">
   <div style="border: 3px solid #F962A; border-radius: 10px; width: 90%; padding: 1rem;">
-    <p id="currentTime" class="font-weight-bold" style="font-size: 7rem; line-height: 1.1;"></p>
+    <p id="currentTime" class="font-weight-bold"></p>
 
+    <div id="scriptureContainer">
+      <p id="scripture" class="font-italic"></p>
+    </div>
 
-    <p id="scripture" class="font-italic mt-4" style="font-size: 2rem;"></p>
-
-    
     <footer class="text-center mt-5">
-  <p>&copy; 2025 The Hudson Bible API</p>
-</footer>
+      <p>&copy; 2025 The Hudson Bible API</p>
+    </footer>
   </div>
 </div>
-
-
-
 
 <script>
 const jesusSayings = [
