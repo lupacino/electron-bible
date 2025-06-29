@@ -2,6 +2,9 @@ const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { spawn } = require("child_process");
 
+// Disable GPU hardware acceleration
+app.disableHardwareAcceleration();
+
 let serverProcess;
 
 function startExpressServer() {
