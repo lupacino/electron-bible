@@ -1,51 +1,21 @@
 <%- include('./partials/header') %>
 
-<div class="container text-center mt-5">
-  <div class="p-4 shadow" style="border: 3px solid #F962A; border-radius: 10px;">
-    <p id="currentTime" class="font-weight-bold" style="font-size: 2rem;"></p>
-    <p id="scripture" class="font-italic mt-3"></p>
-    <button type="button" class="btn btn-primary mt-3" id="openVersionModal" data-toggle="modal" data-target="#versionModal">
-      Select Bible Version
-    </button>
+<div class="text-center d-flex flex-column justify-content-center align-items-center vh-100">
+  <div style="border: 3px solid #F962A; border-radius: 10px; width: 90%; padding: 1rem;">
+    <p id="currentTime" class="font-weight-bold" style="font-size: 7rem; line-height: 1.1;"></p>
+
+
+    <p id="scripture" class="font-italic mt-4" style="font-size: 2rem;"></p>
+
+    
+    <footer class="text-center mt-5">
+  <p>&copy; 2025 The Hudson Bible API</p>
+</footer>
   </div>
 </div>
 
-<!-- Modal for Bible Version Selection -->
-<div class="modal fade" id="versionModal" tabindex="-1" role="dialog" aria-labelledby="versionModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="versionModalLabel">Select Bible Version</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="form-group">
-          <label for="bibleVersion">Choose a Bible Version:</label>
-          <select class="form-control" id="bibleVersion">
-            <option value="ABT" data-summary="This version blends the American Standard Version's structure with the textual basis of the Byzantine Greek manuscript tradition. It reflects a majority-text philosophy, appealing to those who favor the traditional Greek text used in much of church history." data-sample="For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.">American Standard Version Byzantine Text (ABT)</option>
-            <option value="ASV" data-summary="Published in 1901, the ASV is an American revision of the KJV that emphasizes accuracy and consistency with original manuscripts. It uses 'Jehovah' for the divine name and was widely used in early 20th-century American churches." data-sample="For God so loved the world, that he gave his only begotten Son, that whosoever believeth on him should not perish, but have eternal life.">American Standard Version (ASV)</option>
-            <option value="BBE" data-summary="Created in the 1940s, the BBE uses a limited 1,000-word vocabulary aimed at making the Bible accessible to people with basic English skills. It sacrifices some nuance for clarity and readability." data-sample="For God had such love for the world that he gave his only Son, so that whoever has faith in him may not come to destruction but have eternal life.">Bible in Basic English (BBE)</option>
-            <option value="BSB" data-summary="The BSB is a modern, easy-to-read translation that seeks a balance between word-for-word precision and thought-for-thought clarity. It was designed with study and accessibility in mind, featuring free licensing and open availability." data-sample="For God so loved the world that He gave His one and only Son, that everyone who believes in Him shall not perish but have eternal life.">Berean Standard Bible (BSB)</option>
-            <option value="KJV" data-summary="Commissioned by King James I in 1604 and published in 1611, the KJV is one of the most influential and widely read Bible translations in the English-speaking world. Known for its majestic, poetic language, it reflects the scholarship and theology of its time." data-sample="For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life.">King James Version (KJV)</option>
-            <option value="LSV" data-summary="The LSV is a highly literal translation aiming to be as close to the original Hebrew and Greek as possible while remaining readable in English. It features consistent word usage, transliterated proper names, and includes the divine name rendered as 'YHWH.'" data-sample="For God so loved the world that He gave the One and Only Son, that everyone believing in Him should not perish, but should have continuous life.">Literal Standard Version (LSV)</option>
-            <option value="WEBP" data-summary="The World English Bible is a modern update of the American Standard Version, using contemporary English and in the public domain. The 'WEBP' variant is formatted for digital use and includes paragraph structuring and punctuation enhancements." data-sample="For God so loved the world that he gave his one and only Son, that whoever believes in him should not perish, but have eternal life.">World English Bible (WEBP)</option>
-            <option value="YLT" data-summary="Young's Literal Translation is a strictly literal translation of the original Hebrew and Greek texts, created by Robert Young in the 19th century. It preserves original word order and tense usage, making it useful for deep study but often awkward in English flow." data-sample="for God so loved the world, that His Son—the only begotten—He gave, that every one who is believing in him may not perish, but may have life age-during.">Young's Literal Translation (YLT)</option>
-          </select>
-          <div id="versionSummary" class="mt-3"></div>
-          <div id="versionSample" class="mt-3"><strong>John 3:16 Sample:</strong> <span id="sampleText"></span></div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="saveVersion">Save Selection</button>
-      </div>
-    </div>
-  </div>
-</div>
 
-<%- include('./partials/footer') %>
+
 
 <script>
 const jesusSayings = [
@@ -94,7 +64,8 @@ function displayScriptureOrEncouragement(currentHour, currentMinute, currentTime
     document.getElementById('scripture').innerHTML =
       `<em>${saying.text}</em> <small>(${saying.reference})</small>`;
   } else {
-    const selectedVersion = localStorage.getItem('bibleVersion') || 'KJV';
+    const selectedVersion = 'BSB';
+
     fetch(`/bible/random?chapter=${currentHour}&verse=${minutesNum}&translation=${selectedVersion}`)
       .then(response => response.json())
       .then(data => {
@@ -133,51 +104,6 @@ function updateTime() {
     displayScriptureOrEncouragement(hours, minutes, currentTimeStr);
   }
 }
-
-// Modal JavaScript
-document.addEventListener('DOMContentLoaded', () => {
-  const versionSelect = document.getElementById('bibleVersion');
-  const versionSummary = document.getElementById('versionSummary');
-  const versionSample = document.getElementById('sampleText');
-  const saveButton = document.getElementById('saveVersion');
-  const openModalButton = document.getElementById('openVersionModal');
-
-  // Display summary and sample when a version is selected
-  versionSelect.addEventListener('change', () => {
-    const selectedOption = versionSelect.options[versionSelect.selectedIndex];
-    versionSummary.textContent = selectedOption.getAttribute('data-summary');
-    versionSample.textContent = selectedOption.getAttribute('data-sample');
-  });
-
-  // Trigger initial summary and sample display
-  versionSummary.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-summary');
-  versionSample.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-sample');
-
-  // Save selected version and refresh scripture
-  saveButton.addEventListener('click', () => {
-    const selectedVersion = versionSelect.value;
-    localStorage.setItem('bibleVersion', selectedVersion);
-    // Move focus to the open modal button before closing
-    openModalButton.focus();
-    $('#versionModal').modal('hide');
-    // Force refresh scripture
-    previousTime = "";
-    updateTime();
-  });
-
-  // Handle modal hidden event to ensure focus is managed
-  $('#versionModal').on('hidden.bs.modal', () => {
-    openModalButton.focus();
-  });
-
-  // Set default version from localStorage
-  const savedVersion = localStorage.getItem('bibleVersion');
-  if (savedVersion) {
-    versionSelect.value = savedVersion;
-    versionSummary.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-summary');
-    versionSample.textContent = versionSelect.options[versionSelect.selectedIndex].getAttribute('data-sample');
-  }
-});
 
 updateTime();
 setInterval(updateTime, 3000);
