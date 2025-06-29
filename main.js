@@ -1,6 +1,7 @@
 const { app, BrowserWindow } = require("electron");
 const path = require("path");
 const { spawn } = require("child_process");
+const http = require("http");
 
 // Disable GPU hardware acceleration
 app.disableHardwareAcceleration();
@@ -13,6 +14,22 @@ function startExpressServer() {
     shell: true,
     stdio: "inherit",
   });
+
+  console.log("Starting Express server...");
+}
+
+function waitForServer(url, callback) {
+  const interval = setInterval(() => {
+    http
+      .get(url, () => {
+        clearInterval(interval);
+        console.log("Express server is up. Launching Electron window...");
+        callback();
+      })
+      .on("error", () => {
+        console.log("Waiting for server to start...");
+      });
+  }, 500); // Check every 500ms
 }
 
 function createWindow() {
@@ -28,11 +45,12 @@ function createWindow() {
 
 app.whenReady().then(() => {
   startExpressServer();
-  setTimeout(createWindow, 3000);
+  waitForServer("http://localhost:3000", createWindow);
 });
 
 app.on("window-all-closed", () => {
   if (serverProcess) {
+    console.log("Killing Express server process...");
     serverProcess.kill();
   }
   if (process.platform !== "darwin") {
